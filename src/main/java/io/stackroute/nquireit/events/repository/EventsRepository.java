@@ -1,23 +1,24 @@
 package io.stackroute.nquireit.events.repository;
 
 import io.stackroute.nquireit.events.domain.Events;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface EventsRepository extends JpaRepository<Events, Integer> {
+public interface EventsRepository extends MongoRepository<Events, Integer> {
 
-    @Query(value = "SELECT e from Events e where e.eventName=?1")
+    @Query("{'eventName' : ?0}")
     Events findByEventsName(String eventName);
 
-    @Query(value = "SELECT e from Events e where e.category=?1")
+    @Query("{'category' : ?0}")
     List<Events> findByEventsCategory (String category);
 
-    @Query(value = "SELECT e from Events e where e.date=?1")
+    @Query("{'date' : ?0}")
     List<Events> findByEventsDate (Date date);
 
 }

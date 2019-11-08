@@ -41,21 +41,21 @@ public class EventsController {
 
     }
 
-    @GetMapping("events/find/{eventName}")
-    public ResponseEntity<?> getEventByName(@PathVariable(value ="eventName") String eventName ){
+    @GetMapping("events/find")
+    public ResponseEntity<?> getEventByName(@RequestParam(value ="eventName") String eventName ){
         return new ResponseEntity<Events>(eventsService.showEventsByName(eventName),HttpStatus.OK);
 
     }
 
-    @GetMapping("events/find/{date}")
-    public ResponseEntity<?> getEventByDate(@PathVariable(value = "date") Date date) {
-        return new ResponseEntity<List<Events>>(eventsService.showEventsByDate(date),HttpStatus.OK);
-    }
-
-    @GetMapping("events/find/{category}")
-    public ResponseEntity<?> getEventByCategory(@PathVariable(value = "category") String category) {
-        return new ResponseEntity<List<Events>>(eventsService.showEventsByCategory(category),HttpStatus.OK);
-    }
+//    @GetMapping("events/find/{date}")
+//    public ResponseEntity<?> getEventByDate(@PathVariable(value = "date") Date date) {
+//        return new ResponseEntity<List<Events>>(eventsService.showEventsByDate(date),HttpStatus.OK);
+//    }
+//
+//    @GetMapping("events/find/{category}")
+//    public ResponseEntity<?> getEventByCategory(@PathVariable(value = "category") String category) {
+//        return new ResponseEntity<List<Events>>(eventsService.showEventsByCategory(category),HttpStatus.OK);
+//    }
 
 //    @DeleteMapping("events/delete/{}")
 //    public ResponseEntity<?> deleteTrack(@RequestBody Track track){

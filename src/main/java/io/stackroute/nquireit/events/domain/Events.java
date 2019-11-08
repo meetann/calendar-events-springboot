@@ -1,14 +1,14 @@
 package io.stackroute.nquireit.events.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+
+import org.springframework.data.annotation.Id;
 import java.util.Date;
 
-@Entity
+@Document
 public class Events {
 
-    @Column(name = "event_Id")
     @Id
     Integer eventId;
     String eventName;
