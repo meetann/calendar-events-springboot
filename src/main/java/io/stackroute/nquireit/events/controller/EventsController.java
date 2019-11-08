@@ -7,36 +7,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RequestMapping(value="api/v1")
 @RestController
 public class EventsController {
 
-    EventsService eventsService ;
+    private EventsService eventsService ;
 
     public EventsController(EventsService eventsService) {
         this.eventsService = eventsService;
     }
 
-    @GetMapping("event")
-    public ResponseEntity<?> getallevents(){
+    @GetMapping("events")
+    public ResponseEntity<?> getAllEvents(){
         return new ResponseEntity<List<Events>>(eventsService.showAllEvents(), HttpStatus.OK);
     }
-//    @PostMapping("music")
-//    public ResponseEntity<?> saveUser(@RequestBody Music music)
-//    {
-//        ResponseEntity responseEntity ;
-//        try {
-//            musicService.saveUser(music);
-//            responseEntity = new ResponseEntity<String>("Successfull created", HttpStatus.CREATED);
-//        }
-//        catch (Exception ex)
-//        {
-//            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
-//        }
-//        return responseEntity;
-//    }
 
     @PostMapping("events")
     public ResponseEntity<?>saveEvents(@RequestBody Events events){
@@ -44,7 +31,7 @@ public class EventsController {
 
         try {
             eventsService.saveEvents(events);
-            responseEntity = new ResponseEntity<String>("Successfull created", HttpStatus.CREATED);
+            responseEntity = new ResponseEntity<String>("Successfully created", HttpStatus.CREATED);
         }
         catch (Exception ex)
         {
@@ -54,16 +41,33 @@ public class EventsController {
 
     }
 
-//    @GetMapping("music/find/{trackName}")
-//    public ResponseEntity<?> query(@PathVariable(value = "trackName") String trackName)
-//    {
-//        return new ResponseEntity<List<Music>>( musicService.queryString(trackName),HttpStatus.OK);
-//    }
-
     @GetMapping("events/find/{eventName}")
     public ResponseEntity<?> getEventByName(@PathVariable(value ="eventName") String eventName ){
         return new ResponseEntity<Events>(eventsService.showEventsByName(eventName),HttpStatus.OK);
 
     }
+
+    @GetMapping("events/find/{date}")
+    public ResponseEntity<?> getEventByDate(@PathVariable(value = "date") Date date) {
+        return new ResponseEntity<List<Events>>(eventsService.showEventsByDate(date),HttpStatus.OK);
+    }
+
+    @GetMapping("events/find/{category}")
+    public ResponseEntity<?> getEventByCategory(@PathVariable(value = "category") String category) {
+        return new ResponseEntity<List<Events>>(eventsService.showEventsByCategory(category),HttpStatus.OK);
+    }
+
+//    @DeleteMapping("events/delete/{}")
+//    public ResponseEntity<?> deleteTrack(@RequestBody Track track){
+//        ResponseEntity responseEntity;
+//        try {
+//            trackService.deleteTrack(track);
+//            responseEntity = new ResponseEntity<String>("Successfully Deleted!",HttpStatus.ACCEPTED);
+//        }catch (Exception e){
+//            responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.NO_CONTENT);
+//        }
+//        return responseEntity;
+//    }
+
 
 }
